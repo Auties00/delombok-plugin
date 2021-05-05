@@ -11,7 +11,7 @@
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A maven plugin to run delombok</description>
-    <url>https://github.com/Auties00/WhatsappWeb4j</url>
+    <url>https://github.com/Auties00/delombok-plugin</url>
     <developers>
         <developer>
             <name>Alessandro Autiero</name>
@@ -26,8 +26,8 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/Auties00/WhatsappWeb4j/tree/master</url>
-        <connection>scm:git:https://github.com/Auties00/WhatsappWeb4j.git</connection>
+        <url>https://github.com/Auties00/delombok-plugin/tree/master</url>
+        <connection>scm:git:https://github.com/Auties00/delombok-plugin.git</connection>
         <tag>whatsappweb4j-release</tag>
     </scm>
     <distributionManagement>
