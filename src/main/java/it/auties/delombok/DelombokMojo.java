@@ -34,7 +34,7 @@ public class DelombokMojo extends AbstractMojo {
     @SneakyThrows
     @Override
     public void execute() {
-        if(rootDirectory.exists()){
+        if(!rootDirectory.exists()){
             getLog().error("Root directory doesn't exist");
             return;
         }
@@ -100,16 +100,13 @@ public class DelombokMojo extends AbstractMojo {
         var output = outputDirectory.toPath().toAbsolutePath();
         var command = String.format("java -jar %s delombok %s -d %s %s",
                 lombok, input, output, createParameters());
-        var process = Runtime.getRuntime().exec(command);
-        if(process.waitFor() != 0){
-            var error = new String(process.getErrorStream().readAllBytes(), StandardCharsets.UTF_8);
-            getLog().error(String.format("Cannot delombok sources: %s", error));
-            return false;
-        }
-
-        var info = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        getLog().info(String.format("Delombok output: %s", info));
-        return true;
+        getLog().info(String.format("Using command: %s", command));
+        var process = new ProcessBuilder()
+                .command(command.split(" "))
+                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                .start();
+        return process.waitFor() == 0;
     }
 
     private String createParameters() {
