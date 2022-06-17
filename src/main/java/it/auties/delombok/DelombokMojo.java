@@ -7,7 +7,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -90,6 +89,7 @@ public class DelombokMojo extends AbstractMojo {
     private String generateDelombokInput(List<Path> sources) {
         return sources.stream()
                 .filter(this::shouldDelombok)
+                .map(rootDirectory.toPath()::relativize)
                 .map(Path::toString)
                 .collect(Collectors.joining(" "));
     }
@@ -102,6 +102,7 @@ public class DelombokMojo extends AbstractMojo {
                 lombok, input, output, createParameters());
         getLog().info(String.format("Using command: %s", command));
         var process = new ProcessBuilder()
+                .directory(rootDirectory)
                 .command(command.split(" "))
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .redirectOutput(ProcessBuilder.Redirect.INHERIT)

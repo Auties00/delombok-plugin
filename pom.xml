@@ -4,7 +4,7 @@
 
     <groupId>com.github.auties00</groupId>
     <artifactId>delombok-plugin</artifactId>
-    <version>1.18.25-SNAPSHOT</version>
+    <version>1.18.24.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
